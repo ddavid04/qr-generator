@@ -65,5 +65,7 @@ canvas{
 }
 .download-btn:hover {
     background-color: #0505b4; /* Darker cyan */
-
+}
+.qr-div {
+    display: none;
 }
