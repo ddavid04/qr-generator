@@ -31,7 +31,7 @@ function formHandler(e) {
 }
 
 function generateQrImage(text) {
-    qrDiv.innerHTML = ""; // Clear previous QR codes
+    /* qrDiv.innerHTML = ""; // Clear previous QR codes
 
     const canvas = document.createElement("canvas");
     qrDiv.appendChild(canvas);
@@ -52,6 +52,29 @@ function generateQrImage(text) {
             qrDiv.appendChild(downloadBtn);
         }, 100);
     });
+    */
+    
+    qrDiv.innerHTML = ""; // Clear previous QR codes
+
+    // Generate QR Code as Data URL
+    QRCode.toDataURL(text, { margin: 2 })
+        .then((imageUrl) => {
+            // Create an image element
+            const img = document.createElement("img");
+            img.src = imageUrl;
+            img.alt = "QR Code";
+            img.style.display = "block"; // Ensure it's visible
+            qrDiv.appendChild(img);
+
+            // Update download button
+            downloadBtn.href = imageUrl;
+            downloadBtn.style.display = "inline-block"; // Show button
+            downloadBtn.classList.add("download-btn");
+            qrDiv.appendChild(downloadBtn);
+        })
+        .catch((error) => {
+            console.error("Error generating QR Code:", error);
+        });
 }
 
 // Function to apply placeholder styling dynamically
